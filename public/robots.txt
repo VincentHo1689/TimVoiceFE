@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.polyureview.org
+
+# Sitemaps
+Sitemap: https://www.polyureview.org/sitemap.xml
