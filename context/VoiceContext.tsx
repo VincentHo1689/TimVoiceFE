@@ -1,15 +1,13 @@
 "use client"
 import React, {createContext, useContext, useReducer, ReactNode} from "react"
 
-// Define action types
-type ActionType = {type: "SET_TEXT"; payload: string} | {type: "SET_VOICE"; payload: string} | {type: "SET_RECORDED_VOICE"; payload: string} | {type: "SET_GENERATED_VOICE_URL"; payload: string}
+type ActionType = {type: "SET_TEXT"; payload: string} | {type: "SET_VOICE_TYPE"; payload: string} | {type: "SET_RECORDED_VOICE"; payload: string} | {type: "SET_GENERATED_VOICE"; payload: string}
 
-// Define state type
 interface StateType {
 	text: string
 	voice: string
 	recordedVoice: string
-	generatedVoiceUrl: string
+	generatedVoice: string
 }
 
 // Initial state
@@ -17,7 +15,7 @@ const initialState: StateType = {
 	text: "",
 	voice: "record",
 	recordedVoice: "",
-	generatedVoiceUrl: ""
+	generatedVoice: ""
 }
 
 // Reducer function
@@ -25,18 +23,17 @@ const reducer = (state: StateType, action: ActionType): StateType => {
 	switch (action.type) {
 		case "SET_TEXT":
 			return {...state, text: action.payload}
-		case "SET_VOICE":
+		case "SET_VOICE_TYPE":
 			return {...state, voice: action.payload}
 		case "SET_RECORDED_VOICE":
 			return {...state, recordedVoice: action.payload}
-		case "SET_GENERATED_VOICE_URL":
-			return {...state, generatedVoiceUrl: action.payload}
+		case "SET_GENERATED_VOICE":
+			return {...state, generatedVoice: action.payload}
 		default:
 			return state
 	}
 }
 
-// Create context
 const VoiceContext = createContext<
 	| {
 			state: StateType
@@ -45,14 +42,12 @@ const VoiceContext = createContext<
 	| undefined
 >(undefined)
 
-// Provider component
 export const VoiceProvider = ({children}: {children: ReactNode}) => {
 	const [state, dispatch] = useReducer(reducer, initialState)
 
 	return <VoiceContext.Provider value={{state, dispatch}}>{children}</VoiceContext.Provider>
 }
 
-// Custom hook to use the VoiceContext
 export const useVoice = () => {
 	const context = useContext(VoiceContext)
 	if (context === undefined) {
