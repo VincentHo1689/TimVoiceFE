@@ -56,12 +56,12 @@ export default function Home() {
 			// Dispatch the generated voice to the state
 			dispatch({type: "SET_GENERATED_VOICE", payload: response.generatedVoice})
 		} catch (error) {
-			// console.error("Error generating voice:", error)
-			toaster.create({
-				title: "Cannot Generate Voice",
-				description: `${error}`,
-				type: "error"
-			})
+			console.log("Error generating voice:", error)
+			// toaster.create({
+			// 	title: "Cannot Generate Voice",
+			// 	description: `${error}`,
+			// 	type: "error"
+			// })
 		}
 	}
 

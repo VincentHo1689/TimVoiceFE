@@ -1,3 +1,5 @@
+"use client"
+
 import {Flex, Button, IconButton} from "@chakra-ui/react"
 import {useVoice} from "~/context/VoiceContext"
 import React, {useState} from "react"
