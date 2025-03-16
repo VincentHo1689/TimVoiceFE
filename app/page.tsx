@@ -62,6 +62,8 @@ export default function Home() {
 			// 	description: `${error}`,
 			// 	type: "error"
 			// })
+			const generatedVoiceBase64 = state.recordedVoice
+			dispatch({type: "SET_GENERATED_VOICE", payload: generatedVoiceBase64})
 		}
 	}
 
