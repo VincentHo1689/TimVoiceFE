@@ -1,16 +1,16 @@
 "use client"
 
-import {Box, Flex, Text, Button, Link as ChakraLink, useBreakpointValue} from "@chakra-ui/react"
+import {Box, Flex, Text /* , Button, Link as ChakraLink, useBreakpointValue */} from "@chakra-ui/react"
 import {useRouter} from "next/navigation"
 import React from "react"
 
 const NavBar = () => {
 	const router = useRouter()
-	const textContent = useBreakpointValue({
-		base: "PolyU CR", // For small screens (width < 500px)
-		sm: "PolyU Course Review" // For medium and larger screens (width >= 500px)
-	})
-    const isLargeScreen = useBreakpointValue({base: false, md: true})
+	// const textContent = useBreakpointValue({
+	// 	base: "PolyU CR", // For small screens (width < 500px)
+	// 	sm: "PolyU Course Review" // For medium and larger screens (width >= 500px)
+	// })
+	//const isLargeScreen = useBreakpointValue({base: false, md: true})
 
 	return (
 		<Box as="nav" position="fixed" top="0" width="100%" zIndex="1000" bg="brand.solid" color="white" p={2} pr="5%" pl="5%">
@@ -31,11 +31,11 @@ const NavBar = () => {
 					flexWrap="nowrap" // Prevent wrapping of nav items
 				>
 					<Text color="brand.text_reverse" fontSize="lg" fontWeight="bold" onClick={() => router.push("/")} cursor="pointer">
-						{textContent}
+						Voice Clone
 						{/* PolyU CR */}
 					</Text>
 				</Flex>
-				<Flex
+				{/* <Flex
 					as="ul"
 					listStyleType="none"
 					m={0}
@@ -72,7 +72,7 @@ const NavBar = () => {
 							</Button>
 						</ChakraLink>
 					</li>
-				</Flex>
+				</Flex> */}
 			</Flex>
 		</Box>
 	)
