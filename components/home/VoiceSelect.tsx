@@ -1,5 +1,9 @@
-import {Flex, Select, Portal, Button, createListCollection} from "@chakra-ui/react"
+import {Flex, Select, Portal, createListCollection} from "@chakra-ui/react"
 import {useVoice} from "~/context/VoiceContext"
+import dynamic from "next/dynamic"
+//import {RecordButton} from "~/components/home/RecordButton"
+
+const RecordButton = dynamic(() => import("./RecordButton"), {ssr: false})
 
 export const voices = createListCollection({
 	items: [
@@ -12,17 +16,6 @@ export const voices = createListCollection({
 
 export const VoiceSelect = () => {
 	const {state, dispatch} = useVoice()
-
-	const handleRecordVoice = () => {
-		// Logic to record voice and convert to base64 string
-		// Dispatch the recorded voice to context
-		const recordedVoiceBase64 = "base64string" // Replace with actual base64 string
-		dispatch({type: "SET_RECORDED_VOICE", payload: recordedVoiceBase64})
-	}
-
-	// useEffect(() => {
-	// 	console.log(state)
-	// }, [state])
 
 	return (
 		<Flex direction="row" align="center" gap={4}>
@@ -37,7 +30,6 @@ export const VoiceSelect = () => {
 				}}
 			>
 				<Select.HiddenSelect />
-				{/* <Select.Label>Select voice to replicate</Select.Label> */}
 				<Select.Control>
 					<Select.Trigger>
 						<Select.ValueText px={2} placeholder="Select voice to replicate" />
@@ -60,11 +52,7 @@ export const VoiceSelect = () => {
 				</Portal>
 			</Select.Root>
 
-			{state.voice === "record" && (
-				<Button size={"sm"} px={2} onClick={handleRecordVoice}>
-					Record Voice
-				</Button>
-			)}
+			{state.voiceType === "record" && <RecordButton />}
 		</Flex>
 	)
 }
