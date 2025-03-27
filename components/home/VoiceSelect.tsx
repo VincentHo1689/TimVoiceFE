@@ -4,12 +4,14 @@ import dynamic from "next/dynamic"
 //import {RecordButton} from "~/components/home/RecordButton"
 
 const RecordButton = dynamic(() => import("./RecordButton"), {ssr: false})
+const UploadButton = dynamic(() => import("./UploadButton"), {ssr: false})
 
 export const voices = createListCollection({
 	items: [
 		{label: "Voice 1", value: "voice1"},
 		{label: "Voice 2", value: "voice2"},
 		{label: "Voice 3", value: "voice3"},
+		{label: "Upload your voice (.wav)", value: "upload"},
 		{label: "Record your voice", value: "record"}
 	]
 })
@@ -21,7 +23,7 @@ export const VoiceSelect = () => {
 		<Flex direction="row" align="center" gap={4}>
 			<Select.Root
 				collection={voices}
-				size="sm"
+				size="md"
 				w="100%"
 				defaultValue={["record"]}
 				onValueChange={(value) => {
@@ -52,6 +54,7 @@ export const VoiceSelect = () => {
 				</Portal>
 			</Select.Root>
 
+			{state.voiceType === "upload" && <UploadButton />}
 			{state.voiceType === "record" && <RecordButton />}
 		</Flex>
 	)

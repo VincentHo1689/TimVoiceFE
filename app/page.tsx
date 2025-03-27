@@ -1,6 +1,6 @@
 "use client"
 
-import {Center, Stack, Button, Input} from "@chakra-ui/react"
+import {Center, Stack, Button, Text, Textarea} from "@chakra-ui/react"
 import {Toaster, toaster} from "~/components/ui/toaster"
 import {useVoice} from "~/context/VoiceContext"
 import {VoiceSelect} from "~/components/home/VoiceSelect"
@@ -75,8 +75,11 @@ export default function Home() {
 		<Center h="calc(100vh - 40px)" mt="-20px" w="100%">
 			<Toaster />
 			<Stack w="100%" p={4} align="center">
+				<Text as="h1" fontSize="4xl" fontWeight="bold" mb={4}>
+					Cantonese Voice Cloning
+				</Text>
 				<Stack direction="column" px={4} w="100%" maxW="600px">
-					<Input px={2} placeholder="Enter text to say" value={state.text} onChange={(e) => dispatch({type: "SET_TEXT", payload: e.target.value})} />
+					<Textarea size={"xl"} p={2} placeholder="Enter text to say" value={state.text} onChange={(e) => dispatch({type: "SET_TEXT", payload: e.target.value})} />
 
 					<VoiceSelect />
 
