@@ -30,8 +30,8 @@ const NavBar = () => {
 					justify="flex-start"
 					flexWrap="nowrap" // Prevent wrapping of nav items
 				>
-					<Text color="brand.text_reverse" fontSize="lg" fontWeight="bold" onClick={() => router.push("/")} cursor="pointer">
-						Voice Clone
+					<Text py={1} color="brand.text_reverse" fontSize="xl" fontWeight="bold" onClick={() => router.push("/")} cursor="pointer">
+						Cantonese Voice Cloning
 						{/* PolyU CR */}
 					</Text>
 				</Flex>
