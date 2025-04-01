@@ -7,14 +7,11 @@ import {VoiceSelect} from "~/components/home/VoiceSelect"
 import {VoiceOutput} from "~/components/home/VoiceOutput"
 import {useEffect} from "react"
 import apiRequest from "~/components/general/api"
+import VoiceExampleCards from "~/components/home/CardRight"
 
 export default function Home() {
 	const {state, dispatch} = useVoice()
 	const handleGenerateVoice = async () => {
-		// for testing purposes
-		// const generatedVoiceBase64 = state.audio_buffer
-		// dispatch({type: "SET_GENERATED_VOICE", payload: generatedVoiceBase64})
-
 		if (!state.text || !state.speaker_id || (state.speaker_id == "record" && !state.audio_buffer) || (state.speaker_id == "upload" && !state.audio_buffer)) {
 			//console.error("Missing Input")
 			toaster.create({
@@ -30,7 +27,6 @@ export default function Home() {
 			text: string
 			speaker_id: string | null
 			audio_buffer?: string | null
-			//audio_buffer?: ArrayBuffer // Make this property optional with ?
 		}
 
 		const data: GenerateVoiceData = {
@@ -39,15 +35,6 @@ export default function Home() {
 			//audio_buffer: null
 			audio_buffer: state.audio_buffer ? state.audio_buffer : null
 		}
-
-		// if (state.audio_buffer) {
-		// 	const binaryString = atob(state.audio_buffer)
-		// 	const bytes = new Uint8Array(binaryString.length)
-		// 	for (let i = 0; i < binaryString.length; i++) {
-		// 		bytes[i] = binaryString.charCodeAt(i)
-		// 	}
-		// 	data.audio_buffer = bytes.buffer
-		// }
 
 		console.log("Data to send:", data)
 
@@ -91,6 +78,7 @@ export default function Home() {
 	return (
 		<Center h="calc(100vh - 40px)" mt="-20px" w="100%" bgGradient="linear(to-b, blue.50, white)">
 			<Toaster />
+			<VoiceExampleCards />
 			<Stack w="100%" p={4} align="center">
 				<Text as="h1" fontSize="4xl" fontWeight="bold">
 					Cantonese Voice Cloning
@@ -108,12 +96,10 @@ export default function Home() {
 							_focus={{borderColor: "blue.400"}}
 						/>
 					</Stack>
-
 					<Stack>
 						<Text fontWeight="medium">Voice selection</Text>
 						<VoiceSelect />
 					</Stack>
-
 					<Button
 						colorScheme="blue"
 						size="lg"
@@ -126,7 +112,6 @@ export default function Home() {
 					>
 						Generate Voice Clone
 					</Button>
-
 					<VoiceOutput />
 				</Stack>
 			</Stack>
