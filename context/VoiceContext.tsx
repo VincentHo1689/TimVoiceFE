@@ -5,16 +5,16 @@ type ActionType = {type: "SET_TEXT"; payload: string} | {type: "SET_VOICE_TYPE";
 
 interface StateType {
 	text: string
-	voiceType: string
-	recordedVoice: string
+	speaker_id: string
+	audio_buffer: string
 	generatedVoice: string
 }
 
 // Initial state
 const initialState: StateType = {
 	text: "",
-	voiceType: "record",
-	recordedVoice: "",
+	speaker_id: "record",
+	audio_buffer: "",
 	generatedVoice: ""
 }
 
@@ -24,9 +24,9 @@ const reducer = (state: StateType, action: ActionType): StateType => {
 		case "SET_TEXT":
 			return {...state, text: action.payload}
 		case "SET_VOICE_TYPE":
-			return {...state, voiceType: action.payload}
+			return {...state, speaker_id: action.payload}
 		case "SET_RECORDED_VOICE":
-			return {...state, recordedVoice: action.payload}
+			return {...state, audio_buffer: action.payload}
 		case "SET_GENERATED_VOICE":
 			return {...state, generatedVoice: action.payload}
 		default:

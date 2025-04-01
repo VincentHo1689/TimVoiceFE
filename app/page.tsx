@@ -12,10 +12,10 @@ export default function Home() {
 	const {state, dispatch} = useVoice()
 	const handleGenerateVoice = async () => {
 		// for testing purposes
-		// const generatedVoiceBase64 = state.recordedVoice
+		// const generatedVoiceBase64 = state.audio_buffer
 		// dispatch({type: "SET_GENERATED_VOICE", payload: generatedVoiceBase64})
 
-		if (!state.text || !state.voiceType || (state.voiceType == "record" && !state.recordedVoice)) {
+		if (!state.text || !state.speaker_id || (state.speaker_id == "record" && !state.audio_buffer) || (state.speaker_id == "upload" && !state.audio_buffer)) {
 			//console.error("Missing Input")
 			toaster.create({
 				title: "Missing Input",
@@ -25,19 +25,35 @@ export default function Home() {
 			return
 		}
 
-		try {
-			// Make the API request
-			// const response = await apiRequest<{generatedVoice: string}, {text: string; voiceType: string; recordedVoice: string}>("post", "generate-voice", {
-			// 	text: state.text,
-			// 	voiceType: state.voiceType,
-			// 	recordedVoice: state.recordedVoice
-			// })
+		// CONVERT TO ARRAY BUFFER
+		interface GenerateVoiceData {
+			text: string
+			speaker_id: string | null
+			audio_buffer?: string | null
+			//audio_buffer?: ArrayBuffer // Make this property optional with ?
+		}
 
-			const promise = apiRequest<{generatedVoice: string}, {text: string; voiceType: string; recordedVoice: string}>("post", "generate-voice", {
-				text: state.text,
-				voiceType: state.voiceType,
-				recordedVoice: state.recordedVoice
-			})
+		const data: GenerateVoiceData = {
+			text: state.text,
+			speaker_id: state.speaker_id === "upload" || state.speaker_id === "record" ? null : state.speaker_id,
+			//audio_buffer: null
+			audio_buffer: state.audio_buffer ? state.audio_buffer : null
+		}
+
+		// if (state.audio_buffer) {
+		// 	const binaryString = atob(state.audio_buffer)
+		// 	const bytes = new Uint8Array(binaryString.length)
+		// 	for (let i = 0; i < binaryString.length; i++) {
+		// 		bytes[i] = binaryString.charCodeAt(i)
+		// 	}
+		// 	data.audio_buffer = bytes.buffer
+		// }
+
+		console.log("Data to send:", data)
+
+		try {
+			console.log("generate voice")
+			const promise = apiRequest<{audio_buffer: string}>("post", "generate", data)
 
 			toaster.promise(promise, {
 				success: {
@@ -53,22 +69,23 @@ export default function Home() {
 
 			const response = await promise
 
+			console.log("Response:", response)
+
+			const audioData = response.audio_buffer
+			//const base64 = btoa(new Uint8Array(audioData).reduce((data, byte) => data + String.fromCharCode(byte), ""))
+
 			// Dispatch the generated voice to the state
-			dispatch({type: "SET_GENERATED_VOICE", payload: response.generatedVoice})
+			dispatch({type: "SET_GENERATED_VOICE", payload: audioData})
 		} catch (error) {
 			console.log("Error generating voice:", error)
-			// toaster.create({
-			// 	title: "Cannot Generate Voice",
-			// 	description: `${error}`,
-			// 	type: "error"
-			// })
-			const generatedVoiceBase64 = state.recordedVoice
-			dispatch({type: "SET_GENERATED_VOICE", payload: generatedVoiceBase64})
+
+			//const generatedVoiceBase64 = state.audio_buffer
+			dispatch({type: "SET_GENERATED_VOICE", payload: ""})
 		}
 	}
 
 	useEffect(() => {
-		console.log(state)
+		console.log("state", state)
 	}, [state])
 
 	return (

@@ -8,9 +8,9 @@ const UploadButton = dynamic(() => import("./UploadButton"), {ssr: false})
 
 export const voices = createListCollection({
 	items: [
-		{label: "Voice 1", value: "voice1"},
-		{label: "Voice 2", value: "voice2"},
-		{label: "Voice 3", value: "voice3"},
+		{label: "Voice 1", value: "LTTS_1"},
+		{label: "Voice 2", value: "LTTS_2"},
+		//{label: "Voice 3", value: "voice3"},
 		{label: "Upload your voice (.wav)", value: "upload"},
 		{label: "Record your voice", value: "record"}
 	]
@@ -27,8 +27,12 @@ export const VoiceSelect = () => {
 				w="100%"
 				defaultValue={["record"]}
 				onValueChange={(value) => {
-					console.log(value)
+					//console.log(value)
 					dispatch({type: "SET_VOICE_TYPE", payload: value.value[0]})
+					if (value.value[0] === "LTTS_1" || value.value[0] === "LTTS_2") {
+						//console.log("Selected voice:", value.value[0])
+						dispatch({type: "SET_RECORDED_VOICE", payload: ""})
+					}
 				}}
 			>
 				<Select.HiddenSelect />
@@ -54,8 +58,8 @@ export const VoiceSelect = () => {
 				</Portal>
 			</Select.Root>
 
-			{state.voiceType === "upload" && <UploadButton />}
-			{state.voiceType === "record" && <RecordButton />}
+			{state.speaker_id === "upload" && <UploadButton />}
+			{state.speaker_id === "record" && <RecordButton />}
 		</Flex>
 	)
 }
