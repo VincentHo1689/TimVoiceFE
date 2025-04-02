@@ -8,11 +8,11 @@ const UploadButton = dynamic(() => import("./UploadButton"), {ssr: false})
 
 export const voices = createListCollection({
 	items: [
-		{label: "Voice 1", value: "LTTS_1"},
-		{label: "Voice 2", value: "LTTS_2"},
+		{label: "語音 1 Voice 1", value: "LTTS_1"},
+		{label: "語音 2 Voice 2", value: "LTTS_2"},
 		//{label: "Voice 3", value: "voice3"},
-		{label: "Upload your voice (.wav)", value: "upload"},
-		{label: "Record your voice", value: "record"}
+		{label: "上傳音檔 Upload Voice  (.wav)", value: "upload"},
+		{label: "錄製聲音 Record Voice", value: "record"}
 	]
 })
 
@@ -23,7 +23,7 @@ export const VoiceSelect = () => {
 		<Flex direction="row" align="center" gap={4}>
 			<Select.Root
 				collection={voices}
-				size="md"
+				size="lg"
 				w="100%"
 				defaultValue={["record"]}
 				onValueChange={(value) => {
@@ -38,7 +38,7 @@ export const VoiceSelect = () => {
 				<Select.HiddenSelect />
 				<Select.Control>
 					<Select.Trigger>
-						<Select.ValueText px={2} placeholder="Select voice to replicate" />
+						<Select.ValueText px={2} placeholder="可選擇語音模型或錄製自己的聲音。 Choose voice or record your own voice." />
 					</Select.Trigger>
 					<Select.IndicatorGroup>
 						<Select.Indicator px={2} />

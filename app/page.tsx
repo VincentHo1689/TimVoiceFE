@@ -81,14 +81,16 @@ export default function Home() {
 			<VoiceExampleCards />
 			<Stack w="100%" p={4} align="center">
 				<Text as="h1" fontSize="4xl" fontWeight="bold">
-					Cantonese Voice Cloning
+					語音生成 Voice Generation
 				</Text>
 				<Stack direction="column" w="100%" maxW="600px" p={6} borderRadius="xl" boxShadow="lg" bg="white">
 					<Stack>
-						<Text fontWeight="medium">Text to speak</Text>
+						<Text fontSize="xl" fontWeight="medium">
+							生成文字 Word for Voice
+						</Text>
 						<Textarea
 							p={3}
-							placeholder="Enter text to say"
+							placeholder="輸入你想要生成的語音內容 Enter the text you want to generate."
 							value={state.text}
 							onChange={(e) => dispatch({type: "SET_TEXT", payload: e.target.value})}
 							size="lg"
@@ -97,7 +99,9 @@ export default function Home() {
 						/>
 					</Stack>
 					<Stack>
-						<Text fontWeight="medium">Voice selection</Text>
+						<Text fontSize="xl" fontWeight="medium">
+							選擇語音模型 Choose Voice Model
+						</Text>
 						<VoiceSelect />
 					</Stack>
 					<Button
@@ -110,7 +114,7 @@ export default function Home() {
 						transition="all 0.2s"
 						w="100%"
 					>
-						Generate Voice Clone
+						生成語音 Generate Voice
 					</Button>
 					<VoiceOutput />
 				</Stack>
