@@ -1,6 +1,6 @@
 "use client"
 
-import {Center, Stack, Button, Text, Textarea} from "@chakra-ui/react"
+import {Center, Stack, Button, Text, Textarea, useBreakpointValue} from "@chakra-ui/react"
 import {Toaster, toaster} from "~/components/ui/toaster"
 import {useVoice} from "~/context/VoiceContext"
 import {VoiceSelect} from "~/components/home/VoiceSelect"
@@ -11,6 +11,8 @@ import VoiceExampleCards from "~/components/home/CardRight"
 
 export default function Home() {
 	const {state, dispatch} = useVoice()
+	const isMobile = useBreakpointValue({base: false, xl: true})
+	const isSmallMobile = useBreakpointValue({base: false, md: true})
 	const handleGenerateVoice = async () => {
 		if (!state.text || !state.speaker_id || (state.speaker_id == "record" && !state.audio_buffer) || (state.speaker_id == "upload" && !state.audio_buffer)) {
 			//console.error("Missing Input")
@@ -78,15 +80,15 @@ export default function Home() {
 	return (
 		<Center h="calc(100vh - 40px)" mt="-20px" w="100%" bgGradient="linear(to-b, blue.50, white)">
 			<Toaster />
-			<VoiceExampleCards />
-			<Stack w="100%" p={4} align="center">
+			{isMobile ? <VoiceExampleCards /> : null}
+			<Stack w="100%" p={4} align="center" px={20}>
 				<Text as="h1" fontSize="4xl" fontWeight="bold">
-					語音生成 Voice Generation
+					{isSmallMobile ? "語音生成 Voice Generation" : "語音生成"}
 				</Text>
 				<Stack direction="column" w="100%" maxW="600px" p={6} borderRadius="xl" boxShadow="lg" bg="white">
 					<Stack>
 						<Text fontSize="xl" fontWeight="medium">
-							生成文字 Word for Voice
+							{isSmallMobile ? "生成文字 Word for Voice" : "生成文字"}
 						</Text>
 						<Textarea
 							p={3}
@@ -100,7 +102,7 @@ export default function Home() {
 					</Stack>
 					<Stack>
 						<Text fontSize="xl" fontWeight="medium">
-							選擇語音模型 Choose Voice Model
+							{isSmallMobile ? "選擇語音模型 Choose Voice Model" : "選擇語音模型"}
 						</Text>
 						<VoiceSelect />
 					</Stack>

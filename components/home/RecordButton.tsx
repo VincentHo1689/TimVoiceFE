@@ -6,9 +6,11 @@ import React, {useState} from "react"
 import {useReactMediaRecorder} from "react-media-recorder"
 import {FaMicrophone, FaCheck, FaTimes, FaPlay, FaRedo} from "react-icons/fa"
 
+
 export const RecordButton: React.FC = () => {
 	const {dispatch} = useVoice()
 	const [recordingPhase, setRecordingPhase] = useState<1 | 2 | 3>(1) // 1: Default, 2: Recording, 3: Recorded
+
 	const {startRecording, stopRecording, mediaBlobUrl, clearBlobUrl} = useReactMediaRecorder({
 		audio: true,
 		mediaRecorderOptions: {

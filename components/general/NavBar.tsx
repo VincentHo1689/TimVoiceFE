@@ -1,6 +1,6 @@
 "use client"
 
-import {Box, Flex, Text /* , Button, Link as ChakraLink, useBreakpointValue */} from "@chakra-ui/react"
+import {Box, Flex, Text /* , Button, Link as ChakraLink, useBreakpointValue */, useBreakpointValue} from "@chakra-ui/react"
 import {useRouter} from "next/navigation"
 import React from "react"
 
@@ -11,6 +11,8 @@ const NavBar = () => {
 	// 	sm: "PolyU Course Review" // For medium and larger screens (width >= 500px)
 	// })
 	//const isLargeScreen = useBreakpointValue({base: false, md: true})
+
+    const isMobile = useBreakpointValue({base: false, lg: true})
 
 	return (
 		<Box as="nav" position="fixed" top="0" width="100%" zIndex="1000" bg="brand.solid" color="white" p={2} pr="5%" pl="5%">
@@ -31,7 +33,8 @@ const NavBar = () => {
 					flexWrap="nowrap" // Prevent wrapping of nav items
 				>
 					<Text py={1} color="brand.text_reverse" fontSize="3xl" fontWeight="bold" onClick={() => router.push("/")} cursor="pointer">
-						廣東話語音生成模型 Cantonese Zero-shot TTS System
+						{isMobile ? "廣東話語音生成模型 Cantonese Zero-shot TTS System" : "廣東話語音生成模型"}
+
 						{/* PolyU CR */}
 					</Text>
 				</Flex>
