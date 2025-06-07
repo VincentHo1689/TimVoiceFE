@@ -81,7 +81,7 @@ export default function Home() {
 		<Center h="calc(100vh - 40px)" mt="-20px" w="100%" bgGradient="linear(to-b, blue.50, white)">
 			<Toaster />
 			{isMobile ? <VoiceExampleCards /> : null}
-			<Stack w="100%" p={4} align="center" px={20}>
+			<Stack w="100%" p={4} align="center" px={5}>
 				<Text as="h1" fontSize="4xl" fontWeight="bold">
 					{isSmallMobile ? "語音生成 Voice Generation" : "語音生成"}
 				</Text>
@@ -92,7 +92,7 @@ export default function Home() {
 						</Text>
 						<Textarea
 							p={3}
-							placeholder="輸入你想要生成的語音內容 Enter the text you want to generate."
+							placeholder={"輸入你想要生成的語音內容。\n為了獲得最佳效果, 請保持在15個字以內。\n\nEnter the text you want to generate.\nFor best results, please keep it under 15 words."}
 							value={state.text}
 							onChange={(e) => dispatch({type: "SET_TEXT", payload: e.target.value})}
 							size="lg"
